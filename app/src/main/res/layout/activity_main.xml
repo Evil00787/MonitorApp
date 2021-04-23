@@ -13,201 +13,29 @@
         android:layout_height="wrap_content"
         android:fillViewport="true">
 
-        <androidx.appcompat.widget.SwitchCompat
-            android:id="@+id/Sound_level_meter"
-            android:layout_width="300dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginBottom="360dp"
-            android:switchTextAppearance="@style/TextAppearance.AppCompat.Large"
-            android:text="@string/sound_level_meter"
-            android:textSize="17sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="UseSwitchCompatOrMaterialXml" />
-
-        <androidx.appcompat.widget.SwitchCompat
-            android:id="@+id/Gyroscope"
-            android:layout_width="300dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="80dp"
-            android:text="@string/gyroscope"
-            android:textSize="17sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="UseSwitchCompatOrMaterialXml" />
-
-        <androidx.appcompat.widget.SwitchCompat
-            android:id="@+id/Accelerometer"
-            android:layout_width="300dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="130dp"
-            android:text="@string/accelerometer"
-            android:textSize="17sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="UseSwitchCompatOrMaterialXml" />
-
-        <androidx.appcompat.widget.SwitchCompat
-            android:id="@+id/Gravity"
-            android:layout_width="300dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="180dp"
-            android:text="@string/gravity"
-            android:textSize="17sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="UseSwitchCompatOrMaterialXml" />
-
-        <androidx.appcompat.widget.SwitchCompat
-            android:id="@+id/Light"
-            android:layout_width="300dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="230dp"
-            android:text="@string/light"
-            android:textSize="17sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="UseSwitchCompatOrMaterialXml" />
-
-        <androidx.appcompat.widget.SwitchCompat
-            android:id="@+id/Magnetic_field"
-            android:layout_width="300dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="280dp"
-            android:text="@string/magnetic_field"
-            android:textSize="17sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="UseSwitchCompatOrMaterialXml" />
-
-        <androidx.appcompat.widget.SwitchCompat
-            android:id="@+id/Screen_On_Off"
-            android:layout_width="300dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="330dp"
-            android:text="@string/screen_on_off"
-            android:textSize="17sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="UseSwitchCompatOrMaterialXml" />
-
-        <androidx.appcompat.widget.SwitchCompat
-            android:id="@+id/Sms"
-            android:layout_width="300dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="380dp"
-            android:text="@string/sms"
-            android:textSize="17sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="UseSwitchCompatOrMaterialXml" />
-
-        <androidx.appcompat.widget.SwitchCompat
-            android:id="@+id/Call"
-            android:layout_width="300dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="430dp"
-            android:text="@string/call"
-            android:textSize="17sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="UseSwitchCompatOrMaterialXml" />
-
-        <androidx.appcompat.widget.SwitchCompat
-            android:id="@+id/Battery"
-            android:layout_width="300dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="480dp"
-            android:text="@string/battery_level"
-            android:textSize="17sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="UseSwitchCompatOrMaterialXml" />
-
-        <androidx.appcompat.widget.SwitchCompat
-            android:id="@+id/Airplane_mode"
-            android:layout_width="300dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="530dp"
-            android:text="@string/airplane_mode"
-            android:textSize="17sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="UseSwitchCompatOrMaterialXml" />
-
-        <androidx.appcompat.widget.SwitchCompat
-            android:id="@+id/Network"
-            android:layout_width="300dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="580dp"
-            android:text="@string/network"
-            android:textSize="17sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="UseSwitchCompatOrMaterialXml" />
-
-        <androidx.appcompat.widget.SwitchCompat
-            android:id="@+id/Foreground_app"
-            android:layout_width="300dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="630dp"
-            android:text="@string/foreground_app"
-            android:textSize="17sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="UseSwitchCompatOrMaterialXml" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/AppReadDelayLayout"
-            android:layout_width="72dp"
-            android:layout_height="51dp"
-            android:layout_marginStart="150dp"
-            android:ellipsize="start"
-            app:layout_constraintStart_toStartOf="@+id/Foreground_app"
-            app:layout_constraintTop_toTopOf="@+id/Foreground_app">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/Foreground_app_delay"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:hint="@string/delay"
-                android:inputType="numberSigned"
-                android:maxLength="2" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
         <Button
             android:id="@+id/Button_start_stop"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="680dp"
+            android:layout_width="250dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="272dp"
+            android:background="@drawable/custom_main_button"
             android:text="@string/start"
+            android:textColor="#FFFFFF"
+            android:textSize="30sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.2"
+            app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
             android:id="@+id/Button_zip"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="680dp"
-            android:text="@string/zip_file"
+            android:layout_width="180dp"
+            android:layout_height="64dp"
+            android:layout_marginTop="476dp"
+            android:background="@drawable/custom_misc_button"
+            android:text="@string/spakuj_pliki"
+
+            android:textColor="#FFFFFF"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
@@ -215,12 +43,15 @@
 
         <Button
             android:id="@+id/Button_send"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="680dp"
+            android:layout_width="180dp"
+            android:layout_height="64dp"
+            android:textColor="#FFFFFF"
+
+            android:background="@drawable/custom_misc_button"
+            android:layout_marginTop="556dp"
             android:text="@string/send_file"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.8"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

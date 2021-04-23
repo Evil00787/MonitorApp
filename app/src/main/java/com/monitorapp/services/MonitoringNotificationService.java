@@ -8,9 +8,12 @@ import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ServiceInfo;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.Icon;
+import android.media.MediaRecorder;
+import android.media.projection.MediaProjection;
 import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
@@ -77,6 +80,10 @@ public class MonitoringNotificationService extends Service {
     private boolean isAppRunning;
     private String delayString;
 
+    Notification notification;
+
+
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -137,7 +144,7 @@ public class MonitoringNotificationService extends Service {
             manager.createNotificationChannel(chan);
 
             NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID);
-            Notification notification = notificationBuilder.setOngoing(true)
+            notification = notificationBuilder.setOngoing(true)
                     .setSmallIcon(R.drawable.ic_stat_name)
                     .setLargeIcon(BitmapFactory.decodeResource(this.getResources(), R.drawable.ic_stat_name))
                     .setContentTitle("App is running in background")
@@ -148,6 +155,8 @@ public class MonitoringNotificationService extends Service {
             startForeground(NOTIFICATION_ID, notification);
         }
     }
+
+
 
     private void stopMyService() {
         onMonitoringStop();
@@ -166,103 +175,68 @@ public class MonitoringNotificationService extends Service {
         /* SOUND LEVEL */
         if (ifSoundMonitoring) {
             startService(new Intent(getApplicationContext(), NoiseDetectorService.class));
-            if (isAppRunning) {
-                switchSoundLevelMeter.setClickable(false);
-            }
         }
 
         /* GYROSCOPE */
         if (ifGyroMonitoring) {
             startService(new Intent(getApplicationContext(), SensorsService.class).putExtra("SENSOR_TYPE", TYPE_GYROSCOPE.getValue()));
-            if (isAppRunning) {
-                switchGyroscope.setClickable(false);
-            }
         }
 
         /* ACCELEROMETER */
         if (ifAccelMonitoring) {
             startService(new Intent(getApplicationContext(), SensorsService.class).putExtra("SENSOR_TYPE", TYPE_ACCELEROMETER.getValue()));
-            if (isAppRunning) {
-                switchAccelerometer.setClickable(false);
-            }
         }
 
         /* GRAVITY */
         if (ifGravityMonitoring) {
             startService(new Intent(getApplicationContext(), SensorsService.class).putExtra("SENSOR_TYPE", TYPE_GRAVITY.getValue()));
-            if (isAppRunning) {
-                switchGravity.setClickable(false);
-            }
         }
 
         /* LIGHT METER */
         if (ifLightMonitoring) {
             startService(new Intent(getApplicationContext(), SensorsService.class).putExtra("SENSOR_TYPE", TYPE_LIGHT.getValue()));
-            if (isAppRunning) {
-                switchLight.setClickable(false);
-            }
         }
 
         /* MAGNETIC FIELD */
         if (ifMagnMonitoring) {
             startService(new Intent(getApplicationContext(), SensorsService.class).putExtra("SENSOR_TYPE", TYPE_MAGNETIC_FIELD.getValue()));
-            if (isAppRunning) {
-                switchMagneticField.setClickable(false);
-            }
         }
 
         /* SCREEN ON/OFF */
         if (ifScreenMonitoring) {
             startService(new Intent(getApplicationContext(), ScreenOnOffService.class));
-            if (isAppRunning) {
-                switchScreenOnOff.setClickable(false);
-            }
         }
 
         /* SMS */
         if (ifSmsMonitoring) {
             startService(new Intent(getApplicationContext(), SmsService.class));
-            if (isAppRunning) {
-                switchSms.setClickable(false);
-            }
         }
 
         /* CALL */
         if (ifCallMonitoring) {
             startService(new Intent(getApplicationContext(), CallService.class));
-            if (isAppRunning) {
-                switchCall.setClickable(false);
-            }
         }
 
         /* BATTERY */
         if (ifBattMonitoring) {
             startService(new Intent(getApplicationContext(), BatteryService.class));
-            if (isAppRunning) {
-                switchBattery.setClickable(false);
-            }
         }
 
         /* AIRPLANE MODE */
         if (ifAirplMonitoring) {
             startService(new Intent(getApplicationContext(), AirplaneModeService.class));
-            if (isAppRunning) {
-                switchAirplaneMode.setClickable(false);
-            }
         }
 
         /* NETWORK */
         if (ifNetwMonitoring) {
             startService(new Intent(getApplicationContext(), NetworkService.class));
-            if (isAppRunning) {
-                switchNetwork.setClickable(false);
-            }
         }
 
-        /* FOREGROUND APP */
-        if (!hasUsageStatsPermission() && isAppRunning) {
-            switchForegroundApp.setEnabled(false);
-        }
+
+        final Intent intent = new Intent(this, ScreenRecorderService.class);
+        intent.addCategory("START");
+        startService(intent);
+
 
         if (ifAppMonitoring) {
             long delay;
@@ -301,9 +275,6 @@ public class MonitoringNotificationService extends Service {
                 startService(new Intent(getApplicationContext(), ForegroundAppService.class).putExtra("DELAY", delay));
             }
         }
-        if (isAppRunning) {
-            switchForegroundApp.setClickable(false);
-        }
     }
 
     private void onMonitoringStop() {
@@ -311,113 +282,77 @@ public class MonitoringNotificationService extends Service {
             Log.d(TAG, ": onMonitoringStop");
         }
 
+        stopService(new Intent(getApplicationContext(), ScreenRecorderService.class));
+
+
+
         /* SOUND LEVEL */
         if (ifSoundMonitoring) {
             stopService(new Intent(getApplicationContext(), NoiseDetectorService.class));
-            if (isAppRunning) {
-                switchSoundLevelMeter.setClickable(true);
-            }
         }
 
         /* GYROSCOPE */
         if (ifGyroMonitoring) {
             stopService(new Intent(getApplicationContext(), SensorsService.class).putExtra("SENSOR_TYPE", TYPE_GYROSCOPE.getValue()));
-            if (isAppRunning) {
-                switchGyroscope.setClickable(true);
-            }
         }
 
         /* ACCELEROMETER */
         if (ifAccelMonitoring) {
             stopService(new Intent(getApplicationContext(), SensorsService.class).putExtra("SENSOR_TYPE", TYPE_ACCELEROMETER.getValue()));
-            if (isAppRunning) {
-                switchAccelerometer.setClickable(true);
-            }
         }
 
         /* GRAVITY */
         if (ifGravityMonitoring) {
             stopService(new Intent(getApplicationContext(), SensorsService.class).putExtra("SENSOR_TYPE", TYPE_GRAVITY.getValue()));
-            if (isAppRunning) {
-                switchGravity.setClickable(true);
-            }
         }
 
         /* LIGHT METER */
         if (ifLightMonitoring) {
             stopService(new Intent(getApplicationContext(), SensorsService.class).putExtra("SENSOR_TYPE", TYPE_LIGHT.getValue()));
-            if (isAppRunning) {
-                switchLight.setClickable(true);
-            }
         }
 
         /* MAGNETIC FIELD */
         if (ifMagnMonitoring) {
             stopService(new Intent(getApplicationContext(), SensorsService.class).putExtra("SENSOR_TYPE", TYPE_MAGNETIC_FIELD.getValue()));
-            if (isAppRunning) {
-                switchMagneticField.setClickable(true);
-            }
         }
 
         /* SCREEN ON/OFF */
         if (ifScreenMonitoring) {
             stopService(new Intent(getApplicationContext(), ScreenOnOffService.class));
-            if (isAppRunning) {
-                switchScreenOnOff.setClickable(true);
-            }
         }
 
         /* SMS */
         if (ifSmsMonitoring) {
             stopService(new Intent(getApplicationContext(), SmsService.class));
-            if (isAppRunning) {
-                switchSms.setClickable(true);
-            }
         }
 
         /* CALL */
         if (ifCallMonitoring) {
             stopService(new Intent(getApplicationContext(), CallService.class));
-            if (isAppRunning) {
-                switchCall.setClickable(true);
-            }
         }
 
         /* BATTERY */
         if (ifBattMonitoring) {
             stopService(new Intent(getApplicationContext(), BatteryService.class));
-            if (isAppRunning) {
-                switchBattery.setClickable(true);
-            }
         }
 
         /* AIRPLANE MODE */
         if (ifAirplMonitoring) {
             stopService(new Intent(getApplicationContext(), AirplaneModeService.class));
-            if (isAppRunning) {
-                switchAirplaneMode.setClickable(true);
-            }
         }
 
         /* NETWORK */
         if (ifNetwMonitoring) {
             stopService(new Intent(getApplicationContext(), NetworkService.class));
-            if (isAppRunning) {
-                switchNetwork.setClickable(true);
-            }
         }
 
-        /* FOREGROUND APP */
-        if (!hasUsageStatsPermission() && isAppRunning) {
-            switchForegroundApp.setEnabled(false);
-        }
+
 
         if (ifAppMonitoring) {
             stopService(new Intent(getApplicationContext(), ForegroundAppService.class));
-            if (isAppRunning) {
-                switchForegroundApp.setClickable(true);
-            }
         }
+
+
 
         /* EXPORT TO CSV */
         try {
@@ -459,21 +394,20 @@ public class MonitoringNotificationService extends Service {
 
     private void loadUiState(@NotNull Context context) {
         SharedPreferences sharedPreferences = context.getSharedPreferences(PACKAGE_NAME, MODE_PRIVATE);
-        ifSoundMonitoring = sharedPreferences.getBoolean("switchSoundLevelMeter", false);
-        ifGyroMonitoring = sharedPreferences.getBoolean("switchGyroscope", false);
-        ifAccelMonitoring = sharedPreferences.getBoolean("switchAccelerometer", false);
-        ifGravityMonitoring = sharedPreferences.getBoolean("switchGravity", false);
-        ifLightMonitoring = sharedPreferences.getBoolean("switchLight", false);
-        ifMagnMonitoring = sharedPreferences.getBoolean("switchMagneticField", false);
-        ifScreenMonitoring = sharedPreferences.getBoolean("switchScreenOnOff", false);
-        ifSmsMonitoring = sharedPreferences.getBoolean("switchSms", false);
-        ifCallMonitoring = sharedPreferences.getBoolean("switchCall", false);
-        ifBattMonitoring = sharedPreferences.getBoolean("switchBattery", false);
-        ifAirplMonitoring = sharedPreferences.getBoolean("switchAirplaneMode", false);
-        ifNetwMonitoring = sharedPreferences.getBoolean("switchNetwork", false);
-        ifAppMonitoring = sharedPreferences.getBoolean("switchForegroundApp", false);
-        String editTextString = sharedPreferences.getString("editTextDelay", "");
-        delayString = sharedPreferences.getString("editTextDelay", "");
+        ifSoundMonitoring = false;
+        ifGyroMonitoring = true;
+        ifAccelMonitoring = true;
+        ifGravityMonitoring = true;
+        ifLightMonitoring = false;
+        ifMagnMonitoring = true;
+        ifScreenMonitoring = true;
+        ifSmsMonitoring = false;
+        ifCallMonitoring = false;
+        ifBattMonitoring = false;
+        ifAirplMonitoring = false;
+        ifNetwMonitoring = true;
+        ifAppMonitoring = true;
+        delayString = "2";
     }
 
     private void postToastFromService(final String message) {

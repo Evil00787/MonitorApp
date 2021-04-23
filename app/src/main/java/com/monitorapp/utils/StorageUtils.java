@@ -15,6 +15,19 @@ public class StorageUtils {
     private static final String TAG = "StorageUtils";
     public static File csvDirectory;
     public static File zipDirectory;
+    public static File dataDirectory;
+
+
+    public static File dataMkdir(Context context) {
+        dataDirectory = new File(getDataStoragePath(context));
+        if (!dataDirectory.exists()) {
+            dataDirectory.mkdirs();
+            if (BuildConfig.DEBUG) {
+                Log.d(TAG, " : Default data directory created.");
+            }
+        }
+        return dataDirectory;
+    }
 
     public static File csvMkdir(Context context) {
         csvDirectory = new File(getCsvStoragePath(context));
@@ -45,12 +58,17 @@ public class StorageUtils {
 
     @NotNull
     public static String getCsvStoragePath(Context context) {
-        return getExternalStoragePath(context) + "/csv/";
+        return getDataStoragePath(context) + "/csv/";
+    }
+
+    @NotNull
+    public static String getDataStoragePath(Context context) {
+        return getExternalStoragePath(context) + "/data";
     }
 
     @NotNull
     public static String getZipStoragePath(Context context) {
-        return getExternalStoragePath(context) + "/zip/";
+        return getExternalStoragePath(context) + "/";
     }
 
     public static boolean isCsvStorageWritable() {
