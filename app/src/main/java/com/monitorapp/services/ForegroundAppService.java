@@ -68,7 +68,7 @@ public class ForegroundAppService extends Service {
 
     @Override
     public int onStartCommand(@NotNull Intent intent, int flags, int startId) {
-        delay = intent.getLongExtra("DELAY", 5);
+        delay = intent.getLongExtra("DELAY", 20);
 
         /* convert to milliseconds */
         delay *= 1000;

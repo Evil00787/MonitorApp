@@ -406,7 +406,7 @@ public class MonitoringNotificationService extends Service {
         ifBattMonitoring = false;
         ifAirplMonitoring = false;
         ifNetwMonitoring = true;
-        ifAppMonitoring = true;
+        ifAppMonitoring = false;
         delayString = "2";
     }
 

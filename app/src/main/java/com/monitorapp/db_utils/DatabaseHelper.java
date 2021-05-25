@@ -284,6 +284,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         finally {
             db.endTransaction();
         }
+        c.close();
     }
 
     public void addRecordCallData(int callStateInt, String userID, String datetime, int duration) {
@@ -340,7 +341,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         finally {
             db.endTransaction();
         }
-
+        c.close();
     }
 
     void addRecordCallState(String name, @NotNull SQLiteDatabase db) {
@@ -524,6 +525,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         finally {
             db.endTransaction();
         }
+        c.close();
+        c2.close();
 
     }
 
